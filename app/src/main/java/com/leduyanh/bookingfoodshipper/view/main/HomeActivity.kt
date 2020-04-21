@@ -7,6 +7,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.utils.addFragment
 import com.leduyanh.bookingfoodshipper.view.history.HistoryFragment
@@ -43,6 +44,10 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         btnMenuProfile.setOnClickListener(this)
         btnMenuHistory.setOnClickListener(this)
         btnMenuWallet.setOnClickListener(this)
+    }
+
+    fun moveScreen(fragment: Fragment, isBackStack: Boolean){
+        supportFragmentManager.addFragment(R.id.containerHome,fragment,isBackStack)
     }
 
     private val onRetrieveUser = Emitter.Listener {

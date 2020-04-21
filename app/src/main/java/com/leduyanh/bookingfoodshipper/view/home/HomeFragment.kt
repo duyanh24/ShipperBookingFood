@@ -61,9 +61,10 @@ class HomeFragment : Fragment() {
             }
 
         btnHomeActiveStatus.setOnClickListener {
-            val intent = Intent(activity!!,
-                NewOrderActivity::class.java)
+            val intent = Intent(activity!!, NewOrderActivity::class.java)
             startActivity(intent)
+//            val dialogFragment = BlankFragment()
+//            dialogFragment.show(fragmentManager!!,"demo")
         }
     }
 

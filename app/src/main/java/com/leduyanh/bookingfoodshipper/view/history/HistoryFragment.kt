@@ -29,6 +29,7 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         historyViewModel = HistoryViewModel()
         binding.viewModel = historyViewModel
         rvHistoryListOder.layoutManager = LinearLayoutManager(activity)

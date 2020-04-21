@@ -1,6 +1,7 @@
 package com.leduyanh.bookingfoodshipper.base
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@ abstract class BaseAdapter<T> (private val list: ArrayList<T>):
         holder.bindViewHolder()
     }
 
-    inner class BaseViewHolder(v: OrderItemBinding): RecyclerView.ViewHolder(v.root ) {
+    inner class BaseViewHolder(v: OrderItemBinding): RecyclerView.ViewHolder(v.root ),View.OnClickListener {
         private val viewModel = OrderViewModel()
 
         init {
@@ -39,6 +40,11 @@ abstract class BaseAdapter<T> (private val list: ArrayList<T>):
 
         fun bindViewHolder(){
             viewModel.bindData(getValueItem(adapterPosition))
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View) {
+            onClickItem(p0,adapterPosition)
         }
     }
 
@@ -46,6 +52,11 @@ abstract class BaseAdapter<T> (private val list: ArrayList<T>):
 
     abstract fun getValueItem(adapterPosition: Int): Order
 
+    abstract fun onClickItem(v: View,adapterPosition :Int)
+
     abstract fun getItemLayout():Int
 
+}
+interface OnClickItemListener{
+    fun onClickItem(view: View, orderId: Int)
 }
