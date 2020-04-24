@@ -14,6 +14,7 @@ import com.leduyanh.bookingfoodshipper.view.history.HistoryFragment
 import com.leduyanh.bookingfoodshipper.view.home.HomeFragment
 import com.leduyanh.bookingfoodshipper.view.neworder.NewOrderActivity
 import com.leduyanh.bookingfoodshipper.view.profile.ProfileFragment
+import com.leduyanh.bookingfoodshipper.view.wallet.WalletFragment
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -66,10 +67,9 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
                     R.id.frameFragment,
                     HomeFragment(), isBackStack = false)
                 changeStatusCheckedMenu("home")
-
             }
             R.id.btnMenuWallet ->{
-                //supportFragmentManager.addFragment(R.id.frameFragment, ProfileFragment(), isBackStack = false)
+                supportFragmentManager.addFragment(R.id.frameFragment, WalletFragment(), isBackStack = false)
                 changeStatusCheckedMenu("wallet")
             }
             R.id.btnMenuHistory ->{

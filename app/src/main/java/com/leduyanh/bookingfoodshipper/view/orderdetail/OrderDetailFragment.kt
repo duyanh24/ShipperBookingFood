@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.databinding.FragmentOrderDetailBinding
 import kotlinx.android.synthetic.main.fragment_order_detail.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class OrderDetailFragment : Fragment() {
 
-    lateinit var binding: FragmentOrderDetailBinding
-    lateinit var orderDetailViewModel: OrderDetailViewModel
+    private val orderDetailViewModel: OrderDetailViewModel by viewModel()
+    private lateinit var binding: FragmentOrderDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +31,6 @@ class OrderDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        orderDetailViewModel = OrderDetailViewModel()
         binding.viewmodel = orderDetailViewModel
 
         rvcOrderDetail.layoutManager = LinearLayoutManager(activity)
@@ -39,6 +39,5 @@ class OrderDetailFragment : Fragment() {
         btnOrderDetailBack.setOnClickListener {
             activity!!.onBackPressed()
         }
-
     }
 }

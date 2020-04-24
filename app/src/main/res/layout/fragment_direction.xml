@@ -128,6 +128,7 @@
             android:weightSum="3">
 
             <LinearLayout
+                android:id="@+id/btnCall"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -160,6 +161,7 @@
                 android:background="@color/colorBlack" />
 
             <LinearLayout
+                android:id="@+id/btnSendMessage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

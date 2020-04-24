@@ -1,7 +1,7 @@
 package com.leduyanh.bookingfoodshipper.view.history
 
 import androidx.lifecycle.ViewModel
-import com.leduyanh.bookingfoodshipper.data.Order
+import com.leduyanh.bookingfoodshipper.data.models.order.Order
 
 class OrderViewModel:ViewModel() {
 
@@ -12,8 +12,8 @@ class OrderViewModel:ViewModel() {
 
     fun bindData(data: Order){
         time = data.time
-        addressRestaurant = data.addressRestau
+        addressRestaurant = data.store.address
         addressCustomer = data.addressCus
-        price = data.price
+        price = "250.000 vnđ"
     }
 }

@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.leduyanh.bookingfoodshipper.R
-import com.leduyanh.bookingfoodshipper.data.dish.Dish
+import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
 import com.leduyanh.bookingfoodshipper.databinding.DishItemBinding
 
 class DishAdapter(var list: ArrayList<Dish> = ArrayList()):

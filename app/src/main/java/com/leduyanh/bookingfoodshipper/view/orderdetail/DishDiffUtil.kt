@@ -1,7 +1,7 @@
 package com.leduyanh.bookingfoodshipper.view.orderdetail
 
 import com.leduyanh.bookingfoodshipper.base.BaseDiffUtil
-import com.leduyanh.bookingfoodshipper.data.dish.Dish
+import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
 
 class DishDiffUtil(
     private val oldList: ArrayList<Dish>,

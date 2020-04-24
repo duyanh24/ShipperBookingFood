@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.base.BaseAdapter
 import com.leduyanh.bookingfoodshipper.base.OnClickItemListener
-import com.leduyanh.bookingfoodshipper.data.Order
+import com.leduyanh.bookingfoodshipper.data.models.order.Order
 
 class ListOrderAdapter(private var listOrder: ArrayList<Order> = ArrayList())
     : BaseAdapter<Order>(listOrder) {

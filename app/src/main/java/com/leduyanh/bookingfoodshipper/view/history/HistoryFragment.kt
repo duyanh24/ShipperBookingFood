@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.databinding.FragmentHistoryBinding
 import kotlinx.android.synthetic.main.fragment_history.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HistoryFragment : Fragment() {
 
-    private lateinit var historyViewModel: HistoryViewModel
+    private val historyViewModel: HistoryViewModel by viewModel()
     private lateinit var binding: FragmentHistoryBinding
 
     override fun onCreateView(
@@ -30,7 +31,6 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        historyViewModel = HistoryViewModel()
         binding.viewModel = historyViewModel
         rvHistoryListOder.layoutManager = LinearLayoutManager(activity)
         historyViewModel.getDataOrder()

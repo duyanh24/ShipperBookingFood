@@ -1,7 +1,7 @@
 package com.leduyanh.bookingfoodshipper.view.orderdetail
 
 import androidx.lifecycle.ViewModel
-import com.leduyanh.bookingfoodshipper.data.dish.Dish
+import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
 
 class OrderDetailViewModel: ViewModel(){
     var customerName = ""
@@ -15,7 +15,7 @@ class OrderDetailViewModel: ViewModel(){
     fun getDataOrderDetail(){
         retaurantName = "Nhà hàng Ngọc Ngân"
         retaurantAddress = "Bạch Mai, Hoàng Mai, Hà Nội"
-        customerName = "Lê Duy Anh"
+        customerName = "Lê Duy Anh 2"
         customerAddress = "Hoàng Mai, Hà Nội"
         totalPrice = "250000 VNĐ"
 

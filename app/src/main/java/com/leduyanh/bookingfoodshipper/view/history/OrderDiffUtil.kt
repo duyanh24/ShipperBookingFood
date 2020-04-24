@@ -1,7 +1,7 @@
 package com.leduyanh.bookingfoodshipper.view.history
 
 import com.leduyanh.bookingfoodshipper.base.BaseDiffUtil
-import com.leduyanh.bookingfoodshipper.data.Order
+import com.leduyanh.bookingfoodshipper.data.models.order.Order
 
 
 class OrderDiffUtil(
@@ -15,8 +15,8 @@ class OrderDiffUtil(
 
     override fun checkContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].time == newList[newItemPosition].time
-                && oldList[oldItemPosition].price == newList[newItemPosition].price
+                //&& oldList[oldItemPosition].price == newList[newItemPosition].price
                 && oldList[oldItemPosition].addressCus == newList[newItemPosition].addressCus
-                && oldList[oldItemPosition].addressRestau == newList[newItemPosition].addressRestau
+                && oldList[oldItemPosition].orderId == newList[newItemPosition].orderId
     }
 }
