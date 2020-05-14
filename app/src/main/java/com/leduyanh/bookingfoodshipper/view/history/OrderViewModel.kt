@@ -8,12 +8,16 @@ class OrderViewModel:ViewModel() {
     var time = ""
     var addressRestaurant = ""
     var addressCustomer = ""
-    var price = ""
+    var status = ""
 
     fun bindData(data: Order){
         time = data.time
-        addressRestaurant = data.store.address
+        addressRestaurant = data.store.name
         addressCustomer = data.addressCus
-        price = "250.000 vnđ"
+        when(data.status){
+            1 -> status = "Đang giao hàng"
+            2 -> status = "Đã hoàn thành"
+            3 -> status = "Hủy đơn"
+        }
     }
 }

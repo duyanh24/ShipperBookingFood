@@ -1,5 +1,7 @@
 package com.leduyanh.bookingfoodshipper.data.models
 
-data class Store(val id:Int,
-                 val name:String,
-                 val address:String)
+import com.google.gson.annotations.SerializedName
+
+data class Store(@SerializedName("id") val id:Int,
+                 @SerializedName("name") val name:String,
+                 @SerializedName("address") val address:String)

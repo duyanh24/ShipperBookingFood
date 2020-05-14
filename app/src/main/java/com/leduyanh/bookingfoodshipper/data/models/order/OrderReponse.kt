@@ -1,4 +1,6 @@
 package com.leduyanh.bookingfoodshipper.data.models.order
 
-data class OrderReponse(val success:Boolean,
-                        val listOrder: ArrayList<Order>)
+import com.google.gson.annotations.SerializedName
+
+data class OrderReponse(@SerializedName("success") val success:Boolean,
+                        @SerializedName("data") val listOrder: ArrayList<Order>)

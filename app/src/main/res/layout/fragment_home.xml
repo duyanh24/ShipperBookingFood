@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/txtHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trang chủ"
@@ -29,17 +30,17 @@
             android:id="@+id/btnHomeActiveStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_power_green"
+            android:src="@drawable/icon_power_red"
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txtHomeStatusShipper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sẵn sàng"
+            android:text="Đang bận"
             android:layout_marginRight="15dp"
             android:gravity="right"
-            android:textColor="@color/colorGreen"
+            android:textColor="@color/colorRed"
             android:layout_weight="1"/>
 
     </LinearLayout>

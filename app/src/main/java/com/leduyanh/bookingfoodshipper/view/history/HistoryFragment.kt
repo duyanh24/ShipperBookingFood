@@ -12,7 +12,6 @@ import com.leduyanh.bookingfoodshipper.databinding.FragmentHistoryBinding
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class HistoryFragment : Fragment() {
 
     private val historyViewModel: HistoryViewModel by viewModel()
