@@ -1,4 +1,6 @@
 package com.leduyanh.bookingfoodshipper.data.models.dish
 
-data class OrderDetailResponse(val success:String,
-                               val listDish: ArrayList<Dish>)
+import com.google.gson.annotations.SerializedName
+
+data class OrderDetailResponse(@SerializedName("success") val success:Boolean,
+                               @SerializedName("data") val listDish: List<Dish>)

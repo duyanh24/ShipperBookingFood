@@ -15,7 +15,7 @@ class OrderDiffUtil(
 
     override fun checkContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].time == newList[newItemPosition].time
-                //&& oldList[oldItemPosition].price == newList[newItemPosition].price
+                && oldList[oldItemPosition].status == newList[newItemPosition].status
                 && oldList[oldItemPosition].addressCus == newList[newItemPosition].addressCus
                 && oldList[oldItemPosition].orderId == newList[newItemPosition].orderId
     }

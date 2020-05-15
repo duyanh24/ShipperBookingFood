@@ -33,6 +33,6 @@ class ListOrderAdapter(private var listOrder: ArrayList<Order> = ArrayList())
     }
 
     override fun onClickItem(v: View, adapterPosition: Int) {
-        onClickItemListener?.onClickItem(v,listOrder[adapterPosition].orderId)
+        onClickItemListener?.onClickItem(v,listOrder[adapterPosition].orderId,adapterPosition)
     }
 }

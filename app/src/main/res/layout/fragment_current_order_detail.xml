@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.leduyanh.bookingfoodshipper.view.history.HistoryViewModel" />
+            type="com.leduyanh.bookingfoodshipper.view.currentorder.CurrentOrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,8 +13,7 @@
         android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EAEEF2"
-        tools:context=".view.orderdetail.OrderDetailFragment">
+        android:background="#EAEEF2">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -27,7 +26,7 @@
             android:background="@color/colorMain">
 
             <ImageView
-                android:id="@+id/btnOrderDetailBack"
+                android:id="@+id/btnOrderCurentDetailBack"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/abc_vector_test" />
@@ -67,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="@{viewmodel.retaurantName}"
+                android:text="@{viewmodel.currentOrder.store.name}"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -79,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="@{viewmodel.retaurantAddress}"
+                android:text="@{viewmodel.currentOrder.store.address}"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -101,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:text="@{viewmodel.customerName}"
+                android:text="@{viewmodel.currentOrder.user.name}"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -112,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="@{viewmodel.customerAddress}"
+                android:text="@{viewmodel.currentOrder.addressCus}"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -154,10 +153,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvcOrderDetail"
+                    android:id="@+id/rvcOrderCurrentDetail"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="20dp"
+                    app:adapter="@{viewmodel.adapter}"
                     app:layout_constraintBottom_toTopOf="@+id/view3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -185,7 +185,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@={viewmodel.totalPrice}"
+                    android:text="@{viewmodel.totalPrice}"
                     android:textColor="@color/colorBlack"
                     android:textSize="18sp"
                     android:textStyle="bold"

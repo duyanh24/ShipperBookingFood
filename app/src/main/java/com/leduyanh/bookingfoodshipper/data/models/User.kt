@@ -1,4 +1,6 @@
 package com.leduyanh.bookingfoodshipper.data.models
 
-data class User(val userId:Int,
-                val name:String)
+import com.google.gson.annotations.SerializedName
+
+data class User(@SerializedName("id") val userId:Int,
+                @SerializedName("name") val name:String)

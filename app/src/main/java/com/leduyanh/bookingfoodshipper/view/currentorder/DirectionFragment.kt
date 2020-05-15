@@ -9,27 +9,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.leduyanh.bookingfoodshipper.R
+import com.leduyanh.bookingfoodshipper.databinding.FragmentDirectionBinding
 import com.leduyanh.bookingfoodshipper.view.orderdetail.OrderDetailFragment
 import kotlinx.android.synthetic.main.fragment_direction.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class DirectionFragment : Fragment() {
+
+    private lateinit var binding: FragmentDirectionBinding
+    private val currentOrderViewModel:CurrentOrderViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_direction, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_direction,container,false)
+        binding.lifecycleOwner = this
+        binding.viewModel = currentOrderViewModel
+        currentOrderViewModel.getDataOrder()
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         btnOrderDetail.setOnClickListener {
-            (context as CurrentOrderActivity).moveScreen(OrderDetailFragment(),true)
+            (context as CurrentOrderActivity).moveScreen(CurrentOrderDetailFragment(),true)
         }
 
         btnCall.setOnClickListener {

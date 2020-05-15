@@ -3,6 +3,7 @@ package com.leduyanh.bookingfoodshipper.view.home
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,12 +21,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.view.neworder.NewOrderActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var googleMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val homeViewModel:HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,10 +64,22 @@ class HomeFragment : Fragment() {
             }
 
         btnHomeActiveStatus.setOnClickListener {
+            val statusShipper = txtHomeStatusShipper.text.toString()
+            if(statusShipper == "Sẵn sàng"){
+                btnHomeActiveStatus.setImageResource(R.drawable.icon_power_red)
+                txtHomeStatusShipper.text = "Đang bận"
+                txtHomeStatusShipper.setTextColor(Color.RED)
+                homeViewModel.changeStatusShipper(0)
+            }else{
+                btnHomeActiveStatus.setImageResource(R.drawable.icon_power_green)
+                txtHomeStatusShipper.text = "Sẵn sàng"
+                txtHomeStatusShipper.setTextColor(Color.GREEN)
+                homeViewModel.changeStatusShipper(1)
+            }
+        }
+        txtHome.setOnClickListener {
             val intent = Intent(activity!!, NewOrderActivity::class.java)
             startActivity(intent)
-//            val dialogFragment = BlankFragment()
-//            dialogFragment.show(fragmentManager!!,"demo")
         }
     }
 

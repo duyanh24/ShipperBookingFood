@@ -1,4 +1,6 @@
 package com.leduyanh.bookingfoodshipper.data.models.shipper
 
-data class ShipperResponse(val success:Boolean,
-                           val data: Shipper)
+import com.google.gson.annotations.SerializedName
+
+data class ShipperResponse(@SerializedName("success") val success:Boolean,
+                           @SerializedName("data") val shipper: Shipper)

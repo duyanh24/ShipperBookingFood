@@ -58,5 +58,5 @@ abstract class BaseAdapter<T> (private val list: ArrayList<T>):
 
 }
 interface OnClickItemListener{
-    fun onClickItem(view: View, orderId: Int)
+    fun onClickItem(view: View, orderId: Int, positstion: Int)
 }

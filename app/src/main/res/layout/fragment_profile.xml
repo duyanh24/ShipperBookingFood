@@ -1,193 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.profile.ProfileFragment"
-    android:orientation="vertical">
-
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.leduyanh.bookingfoodshipper.view.profile.ProfileViewModel" />
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorMain"
-        android:padding="20dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:cardCornerRadius="30dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_launcher_background"
-                tools:ignore="VectorDrawableCompat" />
-
-        </androidx.cardview.widget.CardView>
+        android:layout_height="match_parent"
+        tools:context=".view.profile.ProfileFragment"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lê Duy Anh"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"/>
-            <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/colorMain"
+            android:padding="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:cardCornerRadius="30dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="4.97"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.shipper.name}"
                     android:textSize="18sp"
-                    android:textColor="@color/colorWhite"
                     android:textStyle="bold"
-                    android:gravity="center"
-                    />
+                    android:textColor="@color/colorWhite"/>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@android:drawable/btn_star_big_on" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="4.97"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
-        <TextView
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Số điện thoại:"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:layout_width="150dp"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại:"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.shipper.phone}"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0123456789"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ:"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.shipper.address}"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
 
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ccc"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
-        <TextView
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ:"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:layout_width="150dp"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Biển số xe:"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.shipper.licensePlates}"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hà Nội, Việt Nam"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="ID card:"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.shipper.identification}"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"/>
 
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ccc"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Biển số xe:"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="29N19999"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ccc"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="ID card:"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="9830123456789"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"/>
-
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardCornerRadius="5dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <Button
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Đổi mật khẩu"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorGreen"
-            android:textAllCaps="false"/>
-    </androidx.cardview.widget.CardView>
+            app:cardCornerRadius="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Đổi mật khẩu"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorGreen"
+                android:textAllCaps="false"/>
+        </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="5dp">
-        <Button
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="5dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
 
-            android:text="Đăng xuất"
-            android:textColor="@color/colorWhite"
-            android:background="#FF4E18"
-            android:textAllCaps="false"/>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+                android:text="Đăng xuất"
+                android:textColor="@color/colorWhite"
+                android:background="#FF4E18"
+                android:textAllCaps="false"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

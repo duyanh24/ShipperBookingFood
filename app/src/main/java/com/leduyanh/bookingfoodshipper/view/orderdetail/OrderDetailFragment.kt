@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.databinding.FragmentOrderDetailBinding
+import com.leduyanh.bookingfoodshipper.view.history.HistoryViewModel
 import kotlinx.android.synthetic.main.fragment_order_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class OrderDetailFragment : Fragment() {
 
-    private val orderDetailViewModel: OrderDetailViewModel by viewModel()
+    private val orderDetailViewModel: HistoryViewModel by viewModel()
     private lateinit var binding: FragmentOrderDetailBinding
 
     override fun onCreateView(

@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.leduyanh.bookingfoodshipper.view.history.HistoryViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.history.HistoryFragment"
@@ -17,22 +18,41 @@
         android:background="#EBEFF7">
 
         <TextView
+            android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorMain"
+            android:gravity="center|left"
+            android:paddingStart="20dp"
             android:text="Lịch sử"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
-            android:paddingStart="20dp"
-            android:gravity="center|left"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvHistoryListOder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_margin="10dp"
             app:adapter="@{viewModel.adapter}"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintVertical_bias="0.0" />
 
-    </LinearLayout>
+        <ProgressBar
+            android:id="@+id/prbCitySelectLoadData"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.dataLoadSuccess ? View.INVISIBLE : View.VISIBLE}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

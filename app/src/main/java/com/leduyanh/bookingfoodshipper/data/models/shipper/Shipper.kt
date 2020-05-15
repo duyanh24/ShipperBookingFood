@@ -1,9 +1,11 @@
 package com.leduyanh.bookingfoodshipper.data.models.shipper
 
-data class Shipper(val shipperId:Int,
-                   val name:String,
-                   val email:String,
-                   val phone:String,
-                   val address:String,
-                   val identification:String,
-                   val licensePlates:String)
+import com.google.gson.annotations.SerializedName
+
+data class Shipper(@SerializedName("id") val shipperId:Int,
+                   @SerializedName("name") val name:String,
+                   @SerializedName("email") val email:String,
+                   @SerializedName("phone") val phone:String,
+                   @SerializedName("address") val address:String,
+                   @SerializedName("identification") val identification:String,
+                   @SerializedName("license_plates") val licensePlates:String)
