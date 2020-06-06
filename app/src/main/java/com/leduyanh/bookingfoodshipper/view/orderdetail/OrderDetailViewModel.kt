@@ -3,8 +3,10 @@ package com.leduyanh.bookingfoodshipper.view.orderdetail
 import androidx.lifecycle.ViewModel
 import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
+import com.leduyanh.bookingfoodshipper.data.models.order.Order
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.OrderRepository
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 
 class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewModel(){
     var customerName = ""
@@ -21,7 +23,8 @@ class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewMo
         customerName = "Lê Duy Anh 2"
         customerAddress = "Hoàng Mai, Hà Nội"
 
-        val authorization = MyApplication.token
+        val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
+        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
         val orderId = 16
 
         var sumPrice = 0

@@ -6,6 +6,9 @@
     <color name="colorMain">#1A1B2E</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreen">#11bc65</color>
+    <color name="colorLightSeaGreen">#1ABC9C</color>
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#E80A0A</color>
+    <color name="colorGrey">#DCD8D8</color>
+    <color name="colorTrout">#97978F</color>
 </resources>
