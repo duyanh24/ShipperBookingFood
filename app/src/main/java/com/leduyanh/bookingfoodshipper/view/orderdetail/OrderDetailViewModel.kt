@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
+
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderDetail
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.OrderRepository
@@ -24,11 +25,11 @@ class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewMo
         customerName = orderSelected.customerName
         customerAddress = orderSelected.customerAddress
 
-
-        val orderId = orderSelected.orderIdSelected
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
         val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
 
+        val orderId = orderSelected.orderIdSelected
+      
         var sumPrice = 0
         orderRepository.getDataOrderDetail(authorization,orderId,object : ICallBack<List<Dish>>{
             override fun getData(data: List<Dish>) {
