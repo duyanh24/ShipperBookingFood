@@ -9,15 +9,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.leduyanh.bookingfoodshipper.R
+import com.leduyanh.bookingfoodshipper.data.models.order.OrderDetail
 import com.leduyanh.bookingfoodshipper.databinding.FragmentOrderDetailBinding
 import com.leduyanh.bookingfoodshipper.view.history.HistoryViewModel
 import kotlinx.android.synthetic.main.fragment_order_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class OrderDetailFragment : Fragment() {
+class OrderDetailFragment(val orderSelected: OrderDetail) : Fragment() {
 
-    private val orderDetailViewModel: HistoryViewModel by viewModel()
+    private val orderDetailViewModel: OrderDetailViewModel by viewModel()
     private lateinit var binding: FragmentOrderDetailBinding
 
     override fun onCreateView(
@@ -35,7 +36,7 @@ class OrderDetailFragment : Fragment() {
         binding.viewmodel = orderDetailViewModel
 
         rvcOrderDetail.layoutManager = LinearLayoutManager(activity)
-        orderDetailViewModel.getDataOrderDetail()
+        orderDetailViewModel.getDataOrderDetail(orderSelected)
 
         btnOrderDetailBack.setOnClickListener {
             activity!!.onBackPressed()
