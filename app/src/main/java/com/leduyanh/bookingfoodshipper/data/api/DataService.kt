@@ -5,6 +5,7 @@ import com.leduyanh.bookingfoodshipper.data.models.order.Order
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderCurrentReponse
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderReponse
 import com.leduyanh.bookingfoodshipper.data.models.shipper.Shipper
+import com.leduyanh.bookingfoodshipper.data.models.shipper.ShipperLoginResponse
 import com.leduyanh.bookingfoodshipper.data.models.shipper.ShipperResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -13,16 +14,16 @@ interface DataService {
 
     @POST("shipper/login")
     @FormUrlEncoded
-    fun logIn(@Field("email") email: String?, @Field("password") password: String?): Call<Shipper?>?
+    fun logIn(@Field("email") email: String?, @Field("password") password: String?): Call<ShipperLoginResponse>
 
     @GET("shipper/{id}")
     fun getInfoShipper(
-        @Header("Authorization") authorization: String?, @Path("id") id: Int
+        @Header("Authorization") authorization: String?, @Path("id") id: Int?
     ): Call<ShipperResponse>
 
     @GET("order/shipper/{id}")
     fun getOrderShipper(
-        @Header("Authorization") authorization: String, @Path("id") id: Int
+        @Header("Authorization") authorization: String?, @Path("id") id: Int?
     ): Call<OrderReponse>
 
     @GET("orderdetail/{id}")

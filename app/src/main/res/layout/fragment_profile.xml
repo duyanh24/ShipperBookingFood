@@ -190,7 +190,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-
+                android:id="@+id/btnLogout"
                 android:text="Đăng xuất"
                 android:textColor="@color/colorWhite"
                 android:background="#FF4E18"

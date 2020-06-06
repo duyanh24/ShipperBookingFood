@@ -10,7 +10,7 @@ import retrofit2.Response
 class ShipperRepository {
     private val retrofitClient = RetrofitClient.newInstance().dataApi
 
-    fun getInforShipper(authorization: String,  idShiper: Int, callback: ICallBack<Shipper>){
+    fun getInforShipper(authorization: String?,  idShiper: Int?, callback: ICallBack<Shipper>){
         val call = retrofitClient.getInfoShipper(authorization,idShiper)
         call.enqueue(object : Callback<ShipperResponse> {
             override fun onResponse(call: Call<ShipperResponse>, response: Response<ShipperResponse>) {
@@ -27,7 +27,7 @@ class ShipperRepository {
         })
     }
 
-    fun updateStatusShipper(authorization: String,  idShiper: Int,isOnline:Int, callback: ICallBack<String>){
+    fun updateStatusShipper(authorization: String?,  idShiper: Int,isOnline:Int, callback: ICallBack<String>){
         val call = retrofitClient.updateOnline(authorization,idShiper,isOnline)
         call.enqueue(object : Callback<Shipper>{
             override fun onFailure(call: Call<Shipper>, t: Throwable) {

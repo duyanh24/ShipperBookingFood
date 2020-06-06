@@ -9,6 +9,7 @@ import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
 import com.leduyanh.bookingfoodshipper.data.models.order.Order
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.OrderRepository
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 import com.leduyanh.bookingfoodshipper.view.orderdetail.DishAdapter
 
 class CurrentOrderViewModel(private val orderRepository: OrderRepository): ViewModel(){
@@ -23,8 +24,9 @@ class CurrentOrderViewModel(private val orderRepository: OrderRepository): ViewM
     var adapter = DishAdapter()
 
     fun getDataOrder(){
-        val authorization = MyApplication.token
-        orderRepository.getCurrentOrder(authorization,object : ICallBack<Order>{
+        val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
+        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        orderRepository.getCurrentOrder(authorization, object : ICallBack<Order>{
             override fun getData(data: Order) {
                 currentOrder.value = data
                 totalPrice.value = data.totalPrice.toString() + " VNĐ"
@@ -45,7 +47,8 @@ class CurrentOrderViewModel(private val orderRepository: OrderRepository): ViewM
 
     fun getDataOrderDetail(){
         getDataOrder()
-        val authorization = MyApplication.token
+        val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
+        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
 
         orderRepository.getDataOrderDetail(authorization,5,object : ICallBack<List<Dish>>{
             override fun getData(data: List<Dish>) {
