@@ -7,6 +7,7 @@ import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderDetail
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.OrderRepository
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 
 class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewModel(){
     var customerName = ""
@@ -23,8 +24,10 @@ class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewMo
         customerName = orderSelected.customerName
         customerAddress = orderSelected.customerAddress
 
-        val authorization = MyApplication.token
+
         val orderId = orderSelected.orderIdSelected
+        val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
+        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
 
         var sumPrice = 0
         orderRepository.getDataOrderDetail(authorization,orderId,object : ICallBack<List<Dish>>{
@@ -38,6 +41,5 @@ class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewMo
             override fun getError(mess: String) {
             }
         })
-
     }
 }

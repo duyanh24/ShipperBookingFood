@@ -13,7 +13,7 @@ import retrofit2.Callback
 class OrderRepository {
     private val retrofitClient = RetrofitClient.newInstance().dataApi
 
-    fun getDataOrder(authorization: String,  idShiper: Int, callback: ICallBack<List<Order>>){
+    fun getDataOrder(authorization: String?,  idShiper: Int?, callback: ICallBack<List<Order>>){
         val call = retrofitClient.getOrderShipper(authorization,idShiper)
         call.enqueue(object : Callback<OrderReponse> {
             override fun onResponse(call: Call<OrderReponse>, response: Response<OrderReponse>) {
@@ -30,7 +30,7 @@ class OrderRepository {
         })
     }
 
-    fun getCurrentOrder(authorization: String, callback: ICallBack<Order>){
+    fun getCurrentOrder(authorization: String?, callback: ICallBack<Order>){
         val call = retrofitClient.getCurrentOrder(authorization)
         call.enqueue(object : Callback<OrderCurrentReponse> {
             override fun onResponse(call: Call<OrderCurrentReponse>, response: Response<OrderCurrentReponse>) {
@@ -47,7 +47,7 @@ class OrderRepository {
         })
     }
 
-    fun getDataOrderDetail(authorization: String, orderId: Int, callback: ICallBack<List<Dish>>){
+    fun getDataOrderDetail(authorization: String?, orderId: Int, callback: ICallBack<List<Dish>>){
         val call = retrofitClient.getOrderById(authorization,orderId)
         call.enqueue(object : Callback<OrderDetailResponse> {
             override fun onResponse(call: Call<OrderDetailResponse>, response: Response<OrderDetailResponse>) {

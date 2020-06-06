@@ -7,15 +7,19 @@ import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.data.models.shipper.Shipper
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.ShipperRepository
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 
-class ProfileViewModel(private val shipperRepository: ShipperRepository):ViewModel(){
+class ProfileViewModel(private val shipperRepository: ShipperRepository): ViewModel(){
 
     val shipper:MutableLiveData<Shipper> = MutableLiveData()
 
+
     fun getDataShipper(){
-        val authorization = MyApplication.token
-        val idShiper = 1
-        shipperRepository.getInforShipper(authorization,idShiper,object : ICallBack<Shipper>{
+        val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
+        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        val idShiper = sharedPreference?.getInt(SaveSharedPreference.ID)
+
+        shipperRepository.getInforShipper(authorization,idShiper, object : ICallBack<Shipper>{
             override fun getData(data: Shipper) {
                 shipper.value = data
             }

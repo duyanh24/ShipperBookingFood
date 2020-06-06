@@ -9,6 +9,7 @@ import com.leduyanh.bookingfoodshipper.data.models.order.Order
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderDetail
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.OrderRepository
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 import com.leduyanh.bookingfoodshipper.view.main.HomeActivity
 import com.leduyanh.bookingfoodshipper.view.orderdetail.OrderDetailFragment
 import kotlin.collections.ArrayList
@@ -17,6 +18,7 @@ class HistoryViewModel(private val orderRepository: OrderRepository): ViewModel(
 
     var adapter = ListOrderAdapter()
     var dataLoadSuccess: MutableLiveData<Boolean> = MutableLiveData()
+
     val listOrder = ArrayList<Order>()
 
     private val onClickItemListener = object : OnClickItemListener {
@@ -36,8 +38,11 @@ class HistoryViewModel(private val orderRepository: OrderRepository): ViewModel(
     }
 
     fun getDataOrder(){
-        val authorization = MyApplication.token
-        val idShiper = 1
+
+        val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
+        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        val idShiper = sharedPreference?.getInt(SaveSharedPreference.ID)
+
         orderRepository.getDataOrder(authorization,idShiper, object : ICallBack<List<Order>>{
             override fun getData(data: List<Order>) {
                 listOrder.clear()

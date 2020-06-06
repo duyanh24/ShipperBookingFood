@@ -8,4 +8,5 @@ data class Shipper(@SerializedName("id") val shipperId:Int,
                    @SerializedName("phone") val phone:String,
                    @SerializedName("address") val address:String,
                    @SerializedName("identification") val identification:String,
-                   @SerializedName("license_plates") val licensePlates:String)
+                   @SerializedName("license_plates") val licensePlates:String,
+                   @SerializedName("url_image") val urlImage:String)
