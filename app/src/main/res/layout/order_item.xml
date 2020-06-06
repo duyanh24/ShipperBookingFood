@@ -43,19 +43,15 @@
                 android:textSize="18sp"
                 android:text="@{viewmodel.addressCustomer}"/>
         </LinearLayout>
-        <LinearLayout
+
+        <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewmodel.status}"
-                android:textSize="18sp"
-                android:textColor="@color/colorGreen"
-                android:gravity="center"/>
-        </LinearLayout>
+            android:text="@{viewmodel.status}"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorGreen"/>
 
     </LinearLayout>
 </layout>
