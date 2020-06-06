@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                             val sharePreference : SaveSharedPreference = SaveSharedPreference(this@LoginActivity)
 
                             sharePreference.putBoolean(SaveSharedPreference.IS_LOGIN.first, true)
-                            sharePreference.putString(SaveSharedPreference.TOKEN.first, data.token)
+                            sharePreference.putString(SaveSharedPreference.TOKEN.first, "Bearer " + data.token)
 
                             sharePreference.putInt(SaveSharedPreference.ID.first, data.shipper.shipperId)
                             sharePreference.putString(SaveSharedPreference.USERNAME.first, data.shipper.name)
