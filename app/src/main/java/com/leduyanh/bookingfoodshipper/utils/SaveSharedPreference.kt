@@ -64,6 +64,6 @@ class SaveSharedPreference(context: Context) {
         val EMAIL = Pair("email", "")
         val TOKEN= Pair("token", "")
         val URL_IMAGE = Pair("url_image", "")
-
+        val ID_NEW_ORDER = Pair("id_order_current", "")
     }
 }

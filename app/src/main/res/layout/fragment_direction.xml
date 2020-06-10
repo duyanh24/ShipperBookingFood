@@ -238,13 +238,13 @@
                     app:cardCornerRadius="5dp">
 
                     <Button
+                        android:id="@+id/btnDirection"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/colorWhite"
                         android:text="Tôi đã đến nhà hàng"
                         android:textAllCaps="false"
                         android:textColor="#58A1EC"
-                        android:onClick="@{viewModel::onclickBtnDirection}"
                         android:textSize="18sp" />
                 </androidx.cardview.widget.CardView>
 

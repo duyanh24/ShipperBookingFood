@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.leduyanh.bookingfoodshipper.R
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 import com.leduyanh.bookingfoodshipper.utils.addFragment
 import com.leduyanh.bookingfoodshipper.view.history.HistoryFragment
 import com.leduyanh.bookingfoodshipper.view.home.HomeFragment
@@ -19,6 +21,7 @@ import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_home.*
+import org.json.JSONObject
 
 class HomeActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -30,10 +33,9 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_home)
 
-        mSocket = IO.socket("http://192.168.1.6:3000/")
+        mSocket = IO.socket("http://192.168.43.22:4000/")
         mSocket.connect()
-
-        mSocket.on("server-send-user",onRetrieveUser)
+        mSocket.on("server-send-order-5",onRetrieveOrder)
 
         supportFragmentManager.addFragment(
             R.id.frameFragment,
@@ -51,9 +53,13 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         supportFragmentManager.addFragment(R.id.containerHome,fragment,isBackStack)
     }
 
-    private val onRetrieveUser = Emitter.Listener {
+    private val onRetrieveOrder = Emitter.Listener {
         runOnUiThread(Runnable {
             kotlin.run {
+                val jsObject: JSONObject = it[0] as JSONObject
+                val data = jsObject.getString("data")
+                val sharePreference  = SaveSharedPreference(this)
+                sharePreference.putString(SaveSharedPreference.ID_NEW_ORDER.first, data)
                 val intent = Intent(this,NewOrderActivity::class.java)
                 startActivity(intent)
             }
@@ -63,6 +69,7 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0?.id){
             R.id.btnMenuHome -> {
+
                 supportFragmentManager.addFragment(
                     R.id.frameFragment,
                     HomeFragment(), isBackStack = false)

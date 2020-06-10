@@ -26,7 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var googleMap: GoogleMap
+    private var googleMap: GoogleMap? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val homeViewModel:HomeViewModel by viewModel()
 
@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
                 // Got last known location. In some rare situations this can be null.
-                if(location != null){
+                if(location != null && googleMap != null){
                     animateCamera(LatLng(location.latitude,location.longitude))
                 }
             }
@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
 
     private fun animateCamera(latLng: LatLng) {
         val cameraUpdate = buildCameraUpdate(latLng)
-        googleMap.animateCamera(cameraUpdate, 10, null)
+        googleMap?.animateCamera(cameraUpdate, 10, null)
     }
 
     private fun buildCameraUpdate(latLng: LatLng): CameraUpdate {

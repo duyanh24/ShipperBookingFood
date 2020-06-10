@@ -21,6 +21,11 @@ class CurrentOrderViewModel(private val orderRepository: OrderRepository): ViewM
     var directionRestaurant = ""
     var directionCustomer = ""
 
+    val customerName: MutableLiveData<String> = MutableLiveData()
+    val storeName: MutableLiveData<String> = MutableLiveData()
+    val customerAddress: MutableLiveData<String> = MutableLiveData()
+    val storeAddress: MutableLiveData<String> = MutableLiveData()
+
     var adapter = DishAdapter()
 
     fun getDataOrder(){
@@ -34,6 +39,11 @@ class CurrentOrderViewModel(private val orderRepository: OrderRepository): ViewM
                 directionRestaurant = data.store.name + ", " + data.store.address
                 directionCustomer = data.user.name + ", " + data.addressCus
                 addressDirection.value = directionRestaurant
+
+                customerName.value = data.user.name
+                storeName.value = data.store.name
+                customerAddress.value = data.addressCus
+                storeAddress.value = data.store.address
             }
             override fun getError(mess: String) {
                 Toast.makeText(MyApplication.instance,mess+"",Toast.LENGTH_LONG).show()

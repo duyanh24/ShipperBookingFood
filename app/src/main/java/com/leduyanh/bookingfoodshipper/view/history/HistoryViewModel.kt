@@ -41,7 +41,8 @@ class HistoryViewModel(private val orderRepository: OrderRepository): ViewModel(
     fun getDataOrder(){
 
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
-        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        //val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        val authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdXlhbmhAZ21haWwuY29tIiwicm9sZSI6InNoaXBwZXIiLCJpYXQiOjE1OTE1MTY0MzcsImV4cCI6MTU5MTUyMDAzN30.FW68MgpGm2Lx_cg8lfwlGSSlUALTCUE-lqu9gvOJ_qU"
         val idShiper = sharedPreference?.getInt(SaveSharedPreference.ID)
 
         orderRepository.getDataOrder(authorization,idShiper, object : ICallBack<List<Order>>{
