@@ -57,6 +57,10 @@ class SaveSharedPreference(context: Context) {
         return preferences?.getBoolean(pair.first, pair.second)
     }
 
+    fun clear() {
+        preferences?.edit()!!.clear().commit();
+    }
+
     companion object {
         val IS_LOGIN = Pair("isLogin", false)
         val ID = Pair("id", 0)

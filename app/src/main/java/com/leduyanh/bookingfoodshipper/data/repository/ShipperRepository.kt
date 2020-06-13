@@ -31,10 +31,22 @@ class ShipperRepository {
         val call = retrofitClient.updateOnline(authorization,idShiper,isOnline)
         call.enqueue(object : Callback<Shipper>{
             override fun onFailure(call: Call<Shipper>, t: Throwable) {
-                callback.getData("Thành công")
+                callback.getError("Thất bại")
             }
             override fun onResponse(call: Call<Shipper>, response: Response<Shipper>) {
+                callback.getData("Thành công")
+            }
+        })
+    }
+
+    fun updateInfoShipper(authorization: String?,  idShiper: Int?, password: String, callback: ICallBack<String>){
+        val call = retrofitClient.updateInfo(authorization, idShiper, password)
+        call.enqueue(object : Callback<Shipper>{
+            override fun onFailure(call: Call<Shipper>, t: Throwable) {
                 callback.getError("Thất bại")
+            }
+            override fun onResponse(call: Call<Shipper>, response: Response<Shipper>) {
+                callback.getData("Thành công")
             }
         })
     }
