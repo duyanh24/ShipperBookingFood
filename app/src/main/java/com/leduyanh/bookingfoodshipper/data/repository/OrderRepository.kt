@@ -63,4 +63,16 @@ class OrderRepository {
             }
         })
     }
+
+    fun updateStatusOrder(authorization: String?,  idShiper: Int,statusOrder:Int, callback: ICallBack<String>){
+        val call = retrofitClient.updateStatusOrder(authorization,idShiper, statusOrder)
+        call.enqueue(object : Callback<Order>{
+            override fun onFailure(call: Call<Order>, t: Throwable) {
+                callback.getData("Thành công")
+            }
+            override fun onResponse(call: Call<Order>, response: Response<Order>) {
+                callback.getError("Thất bại")
+            }
+        })
+    }
 }

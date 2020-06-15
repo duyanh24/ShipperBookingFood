@@ -105,6 +105,7 @@ class LoginActivity : AppCompatActivity() {
 
                             val intent : Intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)
+                            finish()
 
                         } else {
                             notification.text = "Tài khoản hoặc mật khẩu không chính xác"

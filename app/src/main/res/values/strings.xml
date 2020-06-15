@@ -4,6 +4,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="map_api_key">AIzaSyDqcgCGwX4LqaxpwSNnIVZh85gaedU_BJ8</string>
+    <string name="app_id">IHvLTkkCTu4oUixgJ4gR</string>
+    <string name="app_code">E_CvlpVwmJtn3uVlJvqPlg</string>
+
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
-import com.leduyanh.bookingfoodshipper.data.models.order.Order
+
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderDetail
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.OrderRepository
@@ -35,13 +35,12 @@ class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewMo
             override fun getData(data: List<Dish>) {
                 adapter.updateList(data as ArrayList<Dish>)
                 for (element in data){
-                    sumPrice+= element.price
+                    sumPrice+= element.price*element.quantity
                     totalPrice.value = "$sumPrice VNĐ"
                 }
             }
             override fun getError(mess: String) {
             }
         })
-
     }
 }

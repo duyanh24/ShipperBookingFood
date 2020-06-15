@@ -12,8 +12,6 @@ class MyApplication: Application() {
 
     companion object {
 
-        //val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdXlhbmhAZ21haWwuY29tIiwicm9sZSI6InNoaXBwZXIiLCJpYXQiOjE1OTE0MTUwNzIsImV4cCI6MTU5MTQxODY3Mn0.TYdiKiib3nTPGwqR9aa118v5rv1fbHC8E85pHL8SWhI"
-
         lateinit var instance: MyApplication
 
         fun applicationContext(): Context? {
@@ -31,5 +29,4 @@ class MyApplication: Application() {
             modules(viewModelModule)
         }
     }
-
 }

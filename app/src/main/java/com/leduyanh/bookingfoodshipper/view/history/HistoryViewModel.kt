@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.base.OnClickItemListener
 
-import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
 import com.leduyanh.bookingfoodshipper.data.models.order.Order
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderDetail
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
@@ -43,8 +42,9 @@ class HistoryViewModel(private val orderRepository: OrderRepository): ViewModel(
 
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
         val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        //val authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdXlhbmhAZ21haWwuY29tIiwicm9sZSI6InNoaXBwZXIiLCJpYXQiOjE1OTE1MTY0MzcsImV4cCI6MTU5MTUyMDAzN30.FW68MgpGm2Lx_cg8lfwlGSSlUALTCUE-lqu9gvOJ_qU"
         val idShiper = sharedPreference?.getInt(SaveSharedPreference.ID)
-      
+
         orderRepository.getDataOrder(authorization,idShiper, object : ICallBack<List<Order>>{
             override fun getData(data: List<Order>) {
                 listOrder.clear()
