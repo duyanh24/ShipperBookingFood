@@ -40,6 +40,12 @@ interface DataService {
         @Header("Authorization") authorization: String?, @Path("id") id: Int, @Field("isOnline") isOnline: Int
     ): Call<Shipper>
 
+    @PUT("shipper/{id}")
+    @FormUrlEncoded
+    fun updateInfo(
+        @Header("Authorization") authorization: String?, @Path("id") id: Int?, @Field("password") password: String?
+    ): Call<Shipper>
+
     @PUT("order/{id}")
     @FormUrlEncoded
     fun updateStatusOrder(
