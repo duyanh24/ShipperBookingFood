@@ -20,9 +20,9 @@
 
         <activity android:name=".view.currentorder.CurrentOrderActivity" />
         <activity android:name=".view.neworder.NewOrderActivity" />
-        <activity android:name=".view.main.MainActivity" />
         <activity android:name=".view.main.LoginActivity" />
-        <activity android:name=".view.main.HomeActivity">
+        <activity android:name=".view.main.HomeActivity" />
+        <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,7 +8,7 @@ class RetrofitClient {
     lateinit var instance: RetrofitClient
 
     companion object {
-        private const val URL = "http://192.168.43.200:5000/api/"
+        private const val URL = "http://192.168.1.3:4000/api/"
         fun newInstance() = RetrofitClient().apply {
             val retrofit =
                 Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(

@@ -17,6 +17,6 @@ val viewModelModule = module{
     viewModel { HistoryViewModel(get()) }
     viewModel { OrderDetailViewModel(get()) }
     viewModel { HomeViewModel(get()) }
-    viewModel { CurrentOrderViewModel(get()) }
+    viewModel { CurrentOrderViewModel(get(),get()) }
     viewModel { ProfileViewModel(get()) }
 }

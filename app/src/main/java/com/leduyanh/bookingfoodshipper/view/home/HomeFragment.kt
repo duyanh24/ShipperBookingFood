@@ -19,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.leduyanh.bookingfoodshipper.R
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 import com.leduyanh.bookingfoodshipper.view.neworder.NewOrderActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -63,6 +64,18 @@ class HomeFragment : Fragment() {
                 }
             }
 
+        val sharePreference  = SaveSharedPreference(activity!!)
+        var statusShipper = sharePreference.getInt(SaveSharedPreference.STATUS_SHIPPER)
+        if(statusShipper == 0){
+            btnHomeActiveStatus.setImageResource(R.drawable.icon_power_red)
+            txtHomeStatusShipper.text = "Đang bận"
+            txtHomeStatusShipper.setTextColor(Color.RED)
+        }else{
+            btnHomeActiveStatus.setImageResource(R.drawable.icon_power_green)
+            txtHomeStatusShipper.text = "Sẵn sàng"
+            txtHomeStatusShipper.setTextColor(Color.GREEN)
+        }
+
         btnHomeActiveStatus.setOnClickListener {
             val statusShipper = txtHomeStatusShipper.text.toString()
             if(statusShipper == "Sẵn sàng"){
@@ -70,11 +83,13 @@ class HomeFragment : Fragment() {
                 txtHomeStatusShipper.text = "Đang bận"
                 txtHomeStatusShipper.setTextColor(Color.RED)
                 homeViewModel.changeStatusShipper(0)
+                sharePreference.putInt(SaveSharedPreference.STATUS_SHIPPER.first,0)
             }else{
                 btnHomeActiveStatus.setImageResource(R.drawable.icon_power_green)
                 txtHomeStatusShipper.text = "Sẵn sàng"
                 txtHomeStatusShipper.setTextColor(Color.GREEN)
                 homeViewModel.changeStatusShipper(1)
+                sharePreference.putInt(SaveSharedPreference.STATUS_SHIPPER.first,1)
             }
         }
         txtHome.setOnClickListener {

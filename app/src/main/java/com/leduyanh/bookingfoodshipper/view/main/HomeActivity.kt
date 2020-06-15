@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 import com.leduyanh.bookingfoodshipper.utils.addFragment
+import com.leduyanh.bookingfoodshipper.view.currentorder.CurrentOrderViewModel
 import com.leduyanh.bookingfoodshipper.view.history.HistoryFragment
 import com.leduyanh.bookingfoodshipper.view.home.HomeFragment
 import com.leduyanh.bookingfoodshipper.view.neworder.NewOrderActivity
@@ -22,10 +22,12 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_home.*
 import org.json.JSONObject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity(),View.OnClickListener {
 
     private lateinit var mSocket: Socket
+    private val currentOrderViewModel: CurrentOrderViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +35,16 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_home)
 
-        mSocket = IO.socket("http://192.168.43.22:4000/")
+        mSocket = IO.socket("http://192.168.1.3:4000/")
         mSocket.connect()
-        mSocket.on("server-send-order-5",onRetrieveOrder)
+
+        val sharePreference  = SaveSharedPreference(this)
+        sharePreference.putInt(SaveSharedPreference.STATUS_SHIPPER.first,0)
+        currentOrderViewModel.changeStatusShipper(0)
+        val idShipper = sharePreference.getInt(SaveSharedPreference.ID)
+
+        mSocket.on("server-send-order-$idShipper",onRetrieveOrder)
+        //mSocket.on("server-send-order-8",onRetrieveOrder)
 
         supportFragmentManager.addFragment(
             R.id.frameFragment,
@@ -123,4 +132,10 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharePreference  = SaveSharedPreference(this)
+        sharePreference.putInt(SaveSharedPreference.STATUS_SHIPPER.first,0)
+        currentOrderViewModel.changeStatusShipper(0)
+    }
 }

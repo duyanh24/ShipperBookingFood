@@ -25,8 +25,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.databinding.FragmentDirectionBinding
+import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
+import com.leduyanh.bookingfoodshipper.view.main.HomeActivity
 import kotlinx.android.synthetic.main.fragment_direction.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -48,6 +51,8 @@ class DirectionFragment : Fragment() {
     private lateinit var binding: FragmentDirectionBinding
     private val currentOrderViewModel:CurrentOrderViewModel by viewModel()
     lateinit var currenPoint:LatLng
+
+    var STATUS_DIRECTION = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,14 +104,14 @@ class DirectionFragment : Fragment() {
                     1
                 )
             } else {
-                val uri = Uri.parse("tel:" + "2313132154")
+                val uri = Uri.parse("tel:0" + currentOrderViewModel.customerPhone.value)
                 val i = Intent(Intent.ACTION_CALL, uri)
                 startActivity(i)
             }
         }
 
         btnSendMessage.setOnClickListener {
-            val number = "12346556" // The number on which you want to send SMS
+            val number = "0"+ currentOrderViewModel.customerPhone.value
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
@@ -116,20 +121,49 @@ class DirectionFragment : Fragment() {
         }
 
         btnDirection.setOnClickListener {
-            direction()
+            when(STATUS_DIRECTION){
+                1->{
+                    direction(currentOrderViewModel.storeAddress.value)
+                    btnDirection.text = "Tìm đường giao hàng"
+                    STATUS_DIRECTION = 2
+                }
+                2->{
+                    direction(currentOrderViewModel.customerAddress.value)
+                    btnDirection.text = "Hoàn Thành"
+                    STATUS_DIRECTION = 3
+                }
+                3->{
+                    // goi api change status order chưa đc
+                    currentOrderViewModel.changeStatusOrder(2)
+                    val sharePreference  = SaveSharedPreference(MyApplication.instance)
+                    sharePreference.putBoolean(SaveSharedPreference.DELIVERY.first,false)
+                    val intent = Intent(activity,HomeActivity::class.java)
+                    startActivity(intent)
+                    activity!!.finish()
+                }
+            }
         }
     }
 
-    private fun direction(){
+    private fun direction(address: String?){
         googleMap.clear()
 
-        val lat = 20.9712482
-        val lng = 105.825606
+        var enpointFix:LatLng?
+        enpointFix = if(STATUS_DIRECTION == 1){
+            LatLng(20.9712482,105.825606)
+        }else{
+            LatLng(21.0088408,105.8601192)
+        }
 
-        var endPoint = getLocationFromAddress(activity!!,"Truong dinh, ha noi")
+        var endPoint:LatLng? = null
+        try{
+            endPoint = getLocationFromAddress(activity!!,address!!)
+        }catch (e: Exception){
+
+        }
+
         if(endPoint == null){
-            Toast.makeText(activity,"k tim ddc",Toast.LENGTH_LONG).show()
-            endPoint = LatLng(lat,lng)
+            endPoint = enpointFix
         }
         val url = getRequestUrl(currenPoint, endPoint)
         TaskRequestDirections().execute(url)

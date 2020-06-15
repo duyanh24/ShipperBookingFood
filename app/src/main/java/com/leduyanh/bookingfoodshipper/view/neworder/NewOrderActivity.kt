@@ -1,6 +1,5 @@
 package com.leduyanh.bookingfoodshipper.view.neworder
 
-import android.R.id.message
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -25,17 +24,18 @@ class NewOrderActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewOrderBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_order)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_order)
+        binding.lifecycleOwner = this
         binding.viewmodel = currentOrderViewModel
         currentOrderViewModel.getDataOrder()
 
-        mSocket = IO.socket("http://192.168.43.22:4000/")
+        mSocket = IO.socket("http://192.168.1.3:4000/")
         mSocket.connect()
 
         val sharePreference  = SaveSharedPreference(this)
         val idNewOrder = sharePreference.getString(SaveSharedPreference.ID_NEW_ORDER)
-
+        val idShipper = sharePreference.getInt(SaveSharedPreference.ID)
 
         val mediaNotification = MediaPlayer.create(this,R.raw.notification)
         mediaNotification.start()
@@ -46,12 +46,17 @@ class NewOrderActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                //mSocket.emit("shipper-cancel-order",{shiper_id : 1, aaa : 2})
+                val jsonString = "{\"shipper_id\": $idShipper,\"order_id\":$idNewOrder}"
+                //val jsonString = "{\"shipper_id\": 8,\"order_id\":$idNewOrder}"
+                mSocket.emit("shipper-cancel-order",jsonString)
                 onBackPressed()
             }
         }.start()
 
         btnReceiveOrder.setOnClickListener {
+            currentOrderViewModel.changeStatusShipper(2)
+            currentOrderViewModel.changeStatusOrder(1)
+            sharePreference.putBoolean(SaveSharedPreference.DELIVERY.first,true)
             countDown.cancel()
             mSocket.emit("shipper-receive-order",idNewOrder)
             val intent = Intent(this,CurrentOrderActivity::class.java)
@@ -60,7 +65,7 @@ class NewOrderActivity : AppCompatActivity() {
         }
 
         btnCancel.setOnClickListener {
-            val jsonString = "{\"shipper_id\": 5,\"order_id\":$idNewOrder}"
+            val jsonString = "{\"shipper_id\": $idShipper,\"order_id\":$idNewOrder}"
             mSocket.emit("shipper-cancel-order",jsonString)
             countDown.cancel()
             onBackPressed()
