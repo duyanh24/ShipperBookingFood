@@ -9,8 +9,8 @@ class DishViewModel: ViewModel() {
     var price = ""
 
     fun bindData(data: Dish){
-        name = data.name
-        price = data.price.toString()+" vnđ"
+        name = data.dish.name
+        price = data.dish.price.toString()+" vnđ"
         quantity = "x"+ data.quantity.toString()
     }
 }

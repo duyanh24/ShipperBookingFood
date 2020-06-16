@@ -1,6 +1,7 @@
 package com.leduyanh.bookingfoodshipper.data.repository
 
 import com.leduyanh.bookingfoodshipper.data.api.RetrofitClient
+import com.leduyanh.bookingfoodshipper.data.models.Status
 import com.leduyanh.bookingfoodshipper.data.models.dish.Dish
 import com.leduyanh.bookingfoodshipper.data.models.dish.OrderDetailResponse
 import com.leduyanh.bookingfoodshipper.data.models.order.Order
@@ -30,8 +31,8 @@ class OrderRepository {
         })
     }
 
-    fun getCurrentOrder(authorization: String?, callback: ICallBack<Order>){
-        val call = retrofitClient.getCurrentOrder(authorization)
+    fun getCurrentOrder(authorization: String?,status: Int, callback: ICallBack<Order>){
+        val call = retrofitClient.getCurrentOrder(authorization,status)
         call.enqueue(object : Callback<OrderCurrentReponse> {
             override fun onResponse(call: Call<OrderCurrentReponse>, response: Response<OrderCurrentReponse>) {
                 val data = response.body()
@@ -64,8 +65,9 @@ class OrderRepository {
         })
     }
 
-    fun updateStatusOrder(authorization: String?,  idShiper: Int,statusOrder:Int, callback: ICallBack<String>){
-        val call = retrofitClient.updateStatusOrder(authorization,idShiper, statusOrder)
+    fun updateStatusOrder(authorization: String?,  orderId: Int,statusOrder:Int, callback: ICallBack<String>){
+        val status = Status(statusOrder)
+        val call = retrofitClient.updateStatusOrder(authorization,orderId, statusOrder)
         call.enqueue(object : Callback<Order>{
             override fun onFailure(call: Call<Order>, t: Throwable) {
                 callback.getData("Thành công")

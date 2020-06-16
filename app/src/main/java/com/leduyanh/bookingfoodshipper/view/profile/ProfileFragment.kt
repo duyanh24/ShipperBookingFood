@@ -16,6 +16,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.data.repository.ICallBack
 import com.leduyanh.bookingfoodshipper.data.repository.ShipperRepository
@@ -33,6 +34,7 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private val profileViewModel:ProfileViewModel by viewModel()
     private lateinit var dialog : AlertDialog;
+    lateinit var sharePreference : SaveSharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +49,12 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = profileViewModel
         profileViewModel.getDataShipper()
+        sharePreference = SaveSharedPreference(activity!!)
 
-        val sharePreference : SaveSharedPreference = SaveSharedPreference(activity!!)
         val url = sharePreference.getString(SaveSharedPreference.URL_IMAGE)
 
         Picasso.get() // give it the context
-                .load("http://10.0.2.2:5000$url") // load the image
+                .load(MyApplication.URL+url) // load the image
                 .into(avatar)
 
         if (progressBar != null) {
@@ -60,11 +62,11 @@ class ProfileFragment : Fragment() {
         }
 
         btnLogout.setOnClickListener() {
-            val sharePreference : SaveSharedPreference = SaveSharedPreference(activity!!)
+            profileViewModel.changeStatusShipper(0)
             sharePreference.clear()
-
-            val intent : Intent = Intent(activity, LoginActivity::class.java)
+            val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
+            activity?.finish()
         }
 
         btnChangePassword.setOnClickListener {
@@ -107,8 +109,9 @@ class ProfileFragment : Fragment() {
 
                         sharePreference.clear()
 
-                        val intent : Intent = Intent(activity, LoginActivity::class.java)
+                        val intent = Intent(activity, LoginActivity::class.java)
                         startActivity(intent)
+                        activity?.finish()
                     }
 
                     override fun getError(mess: String) {

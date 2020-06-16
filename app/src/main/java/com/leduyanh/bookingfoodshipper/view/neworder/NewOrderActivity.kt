@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.databinding.ActivityNewOrderBinding
 import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
@@ -16,25 +17,26 @@ import io.socket.client.Socket
 import kotlinx.android.synthetic.main.activity_new_order.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class NewOrderActivity : AppCompatActivity() {
 
     private lateinit var mSocket: Socket
     private val currentOrderViewModel: CurrentOrderViewModel by viewModel()
     private lateinit var binding: ActivityNewOrderBinding
+    lateinit var sharePreference  : SaveSharedPreference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_order)
         binding.lifecycleOwner = this
         binding.viewmodel = currentOrderViewModel
-        currentOrderViewModel.getDataOrder()
+        currentOrderViewModel.getDataOrder(0)
 
-        mSocket = IO.socket("http://192.168.1.3:4000/")
+        mSocket = IO.socket(MyApplication.URL+"/")
         mSocket.connect()
 
-        val sharePreference  = SaveSharedPreference(this)
-        val idNewOrder = sharePreference.getString(SaveSharedPreference.ID_NEW_ORDER)
+        sharePreference  = SaveSharedPreference(this)
+        val idNewOrder = sharePreference.getInt(SaveSharedPreference.ID_NEW_ORDER)
         val idShipper = sharePreference.getInt(SaveSharedPreference.ID)
 
         val mediaNotification = MediaPlayer.create(this,R.raw.notification)
@@ -67,6 +69,7 @@ class NewOrderActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             val jsonString = "{\"shipper_id\": $idShipper,\"order_id\":$idNewOrder}"
             mSocket.emit("shipper-cancel-order",jsonString)
+            sharePreference.putInt(SaveSharedPreference.ID_NEW_ORDER.first, -1)
             countDown.cancel()
             onBackPressed()
         }

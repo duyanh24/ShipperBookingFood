@@ -13,7 +13,6 @@ class ProfileViewModel(private val shipperRepository: ShipperRepository): ViewMo
 
     val shipper:MutableLiveData<Shipper> = MutableLiveData()
 
-
     fun getDataShipper(){
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
         val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
@@ -25,6 +24,18 @@ class ProfileViewModel(private val shipperRepository: ShipperRepository): ViewMo
             }
             override fun getError(mess: String) {
                 Toast.makeText(MyApplication.instance,mess,Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    fun changeStatusShipper(isOnline: Int){
+        val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
+        val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        val idShiper = sharedPreference?.getInt(SaveSharedPreference.ID)
+        shipperRepository.updateStatusShipper(authorization,idShiper!!,isOnline,object :ICallBack<String>{
+            override fun getError(mess: String) {
+            }
+            override fun getData(data: String) {
             }
         })
     }

@@ -1,5 +1,6 @@
 package com.leduyanh.bookingfoodshipper.data.api
 
+import com.leduyanh.bookingfoodshipper.MyApplication
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -8,7 +9,7 @@ class RetrofitClient {
     lateinit var instance: RetrofitClient
 
     companion object {
-        private const val URL = "http://192.168.1.3:4000/api/"
+        private const val URL = MyApplication.URL+"/api/"
         fun newInstance() = RetrofitClient().apply {
             val retrofit =
                 Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(

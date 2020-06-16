@@ -1,5 +1,6 @@
 package com.leduyanh.bookingfoodshipper.data.api
 
+import com.leduyanh.bookingfoodshipper.data.models.Status
 import com.leduyanh.bookingfoodshipper.data.models.dish.OrderDetailResponse
 import com.leduyanh.bookingfoodshipper.data.models.order.Order
 import com.leduyanh.bookingfoodshipper.data.models.order.OrderCurrentReponse
@@ -31,8 +32,8 @@ interface DataService {
         @Header("Authorization") authorization: String?, @Path("id") id: Int
     ): Call<OrderDetailResponse>
 
-    @GET("neworder/shipper")
-    fun getCurrentOrder(@Header("Authorization") authorization: String?): Call<OrderCurrentReponse>
+    @GET("neworder/shipper/{status}")
+    fun getCurrentOrder(@Header("Authorization") authorization: String?,@Path("status") status: Int): Call<OrderCurrentReponse>
 
     @PUT("shipper/{id}")
     @FormUrlEncoded

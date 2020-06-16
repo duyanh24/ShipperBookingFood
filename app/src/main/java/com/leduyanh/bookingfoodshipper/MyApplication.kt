@@ -12,6 +12,8 @@ class MyApplication: Application() {
 
     companion object {
 
+        const val URL = "http://192.168.43.22:4000"
+
         lateinit var instance: MyApplication
 
         fun applicationContext(): Context? {

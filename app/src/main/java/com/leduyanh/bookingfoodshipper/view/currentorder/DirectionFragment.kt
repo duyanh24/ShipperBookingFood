@@ -61,7 +61,7 @@ class DirectionFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_direction,container,false)
         binding.lifecycleOwner = this
         binding.viewModel = currentOrderViewModel
-        currentOrderViewModel.getDataOrder()
+        currentOrderViewModel.getDataOrder(1)
         return binding.root
     }
 

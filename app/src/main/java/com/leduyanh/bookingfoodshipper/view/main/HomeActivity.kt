@@ -8,6 +8,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.leduyanh.bookingfoodshipper.MyApplication
 import com.leduyanh.bookingfoodshipper.R
 import com.leduyanh.bookingfoodshipper.utils.SaveSharedPreference
 import com.leduyanh.bookingfoodshipper.utils.addFragment
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
 
     private lateinit var mSocket: Socket
     private val currentOrderViewModel: CurrentOrderViewModel by viewModel()
+    lateinit var sharePreference: SaveSharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,10 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_home)
 
-        mSocket = IO.socket("http://192.168.1.3:4000/")
+        mSocket = IO.socket(MyApplication.URL+"/")
         mSocket.connect()
 
-        val sharePreference  = SaveSharedPreference(this)
+        sharePreference  = SaveSharedPreference(this)
         sharePreference.putInt(SaveSharedPreference.STATUS_SHIPPER.first,0)
         currentOrderViewModel.changeStatusShipper(0)
         val idShipper = sharePreference.getInt(SaveSharedPreference.ID)
@@ -66,9 +68,9 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         runOnUiThread(Runnable {
             kotlin.run {
                 val jsObject: JSONObject = it[0] as JSONObject
-                val data = jsObject.getString("data")
+                val data = jsObject.getString("data").toInt()
                 val sharePreference  = SaveSharedPreference(this)
-                sharePreference.putString(SaveSharedPreference.ID_NEW_ORDER.first, data)
+                sharePreference.putInt(SaveSharedPreference.ID_NEW_ORDER.first, data)
                 val intent = Intent(this,NewOrderActivity::class.java)
                 startActivity(intent)
             }
@@ -134,7 +136,6 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        val sharePreference  = SaveSharedPreference(this)
         sharePreference.putInt(SaveSharedPreference.STATUS_SHIPPER.first,0)
         currentOrderViewModel.changeStatusShipper(0)
     }

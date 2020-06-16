@@ -35,7 +35,7 @@ class OrderDetailViewModel(private val orderRepository: OrderRepository): ViewMo
             override fun getData(data: List<Dish>) {
                 adapter.updateList(data as ArrayList<Dish>)
                 for (element in data){
-                    sumPrice+= element.price*element.quantity
+                    sumPrice+= element.dish.price*element.quantity
                     totalPrice.value = "$sumPrice VNĐ"
                 }
             }

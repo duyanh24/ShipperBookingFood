@@ -101,8 +101,10 @@ class LoginActivity : AppCompatActivity() {
                             sharePreference.putInt(SaveSharedPreference.ID.first, data.shipper.shipperId)
                             sharePreference.putString(SaveSharedPreference.USERNAME.first, data.shipper.name)
                             sharePreference.putString(SaveSharedPreference.EMAIL.first, data.shipper.email)
-                            sharePreference.putString(SaveSharedPreference.URL_IMAGE.first, data.shipper.urlImage)
+                            if(data.shipper.urlImage != null){
+                                sharePreference.putString(SaveSharedPreference.URL_IMAGE.first, data.shipper.urlImage)
 
+                            }
                             val intent : Intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)
                             finish()

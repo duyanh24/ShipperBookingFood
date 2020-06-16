@@ -34,10 +34,10 @@ class CurrentOrderViewModel(
 
     var adapter = DishAdapter()
 
-    fun getDataOrder(){
+    fun getDataOrder(status: Int){
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
         val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
-        orderRepository.getCurrentOrder(authorization, object : ICallBack<Order>{
+        orderRepository.getCurrentOrder(authorization,status, object : ICallBack<Order>{
             override fun getData(data: Order) {
                 currentOrder.value = data
                 totalPrice.value = data.totalPrice.toString() + " VNĐ"
@@ -64,13 +64,19 @@ class CurrentOrderViewModel(
     }
 
     fun getDataOrderDetail(){
-        getDataOrder()
+        getDataOrder(1)
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
         val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
+        val idNewOrver = sharedPreference?.getInt(SaveSharedPreference.ID_NEW_ORDER)
 
-        orderRepository.getDataOrderDetail(authorization,5,object : ICallBack<List<Dish>>{
+        var sumPrice = 0
+        orderRepository.getDataOrderDetail(authorization,idNewOrver!!,object : ICallBack<List<Dish>>{
             override fun getData(data: List<Dish>) {
                 adapter.updateList(data as ArrayList<Dish>)
+                for (element in data){
+                    sumPrice+= element.dish.price*element.quantity
+                    totalPrice.value = "$sumPrice VNĐ"
+                }
             }
             override fun getError(mess: String) {
             }
@@ -84,7 +90,6 @@ class CurrentOrderViewModel(
         shipperRepository.updateStatusShipper(authorization,idShiper!!,isOnline,object :ICallBack<String>{
             override fun getError(mess: String) {
             }
-
             override fun getData(data: String) {
             }
         })
@@ -93,8 +98,8 @@ class CurrentOrderViewModel(
     fun changeStatusOrder(statusOrder: Int){
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
         val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
-        val idShiper = sharedPreference?.getInt(SaveSharedPreference.ID)
-        orderRepository.updateStatusOrder(authorization,idShiper!!,statusOrder,object :ICallBack<String>{
+        val orderId = sharedPreference?.getInt(SaveSharedPreference.ID_NEW_ORDER)
+        orderRepository.updateStatusOrder(authorization,6,statusOrder,object :ICallBack<String>{
             override fun getError(mess: String) {
             }
 
