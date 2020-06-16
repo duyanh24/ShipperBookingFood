@@ -27,7 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity(),View.OnClickListener {
 
-    private lateinit var mSocket: Socket
+    //private lateinit var mSocket: Socket
     private val currentOrderViewModel: CurrentOrderViewModel by viewModel()
     lateinit var sharePreference: SaveSharedPreference
 
@@ -37,15 +37,15 @@ class HomeActivity : AppCompatActivity(),View.OnClickListener {
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_home)
 
-        mSocket = IO.socket(MyApplication.URL+"/")
-        mSocket.connect()
+        //mSocket = IO.socket(MyApplication.URL+"/")
+        //mSocket.connect()
 
         sharePreference  = SaveSharedPreference(this)
         sharePreference.putInt(SaveSharedPreference.STATUS_SHIPPER.first,0)
         currentOrderViewModel.changeStatusShipper(0)
         val idShipper = sharePreference.getInt(SaveSharedPreference.ID)
 
-        mSocket.on("server-send-order-$idShipper",onRetrieveOrder)
+        MyApplication.mSocket.on("server-send-order-$idShipper",onRetrieveOrder)
         //mSocket.on("server-send-order-8",onRetrieveOrder)
 
         supportFragmentManager.addFragment(

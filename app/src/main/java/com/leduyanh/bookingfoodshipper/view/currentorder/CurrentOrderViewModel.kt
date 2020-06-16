@@ -99,7 +99,7 @@ class CurrentOrderViewModel(
         val sharedPreference = MyApplication.applicationContext()?.let { SaveSharedPreference(it) }
         val authorization = sharedPreference?.getString(SaveSharedPreference.TOKEN)
         val orderId = sharedPreference?.getInt(SaveSharedPreference.ID_NEW_ORDER)
-        orderRepository.updateStatusOrder(authorization,6,statusOrder,object :ICallBack<String>{
+        orderRepository.updateStatusOrder(authorization,orderId!!,statusOrder,object :ICallBack<String>{
             override fun getError(mess: String) {
             }
 
